@@ -149,12 +149,16 @@ public class JUnit {
     @Test
     public void testIntercambiaPosiciones() { //AssertArrayEquals
         assertTrue(Pruebas.intercambiarDatos(ordenado, 2, 4));
+        assertArrayEquals(new int[] {1, 2, 0, 4, 3}, ordenado);
 
         assertTrue(Pruebas.intercambiarDatos(ordenado, 0, 4));
+        assertArrayEquals(new int[] {4, 1, 2, 3, 0}, ordenado);
 
         assertTrue(Pruebas.intercambiarDatos(ordenado, 4, 0));
+        assertArrayEquals(new int[] {4, 1, 2, 3, 0}, ordenado);
 
-        assertTrue(Pruebas.intercambiarDatos(ordenado, 2, 4));
+        assertTrue(Pruebas.intercambiarDatos(ordenado, 4, 2));
+        assertArrayEquals(new int[] {1, 2, 0, 4, 3}, ordenado);
     }
 
     //#region MOCKS
