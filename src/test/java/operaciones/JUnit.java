@@ -148,6 +148,7 @@ public class JUnit {
 
     @Test
     public void testIntercambiaPosiciones() { //AssertArrayEquals
+
         assertTrue(Pruebas.intercambiarDatos(ordenado, 2, 4));
         assertArrayEquals(new int[] {1, 2, 0, 4, 3}, ordenado);
 
@@ -159,6 +160,7 @@ public class JUnit {
 
         assertTrue(Pruebas.intercambiarDatos(ordenado, 4, 2));
         assertArrayEquals(new int[] {1, 2, 0, 4, 3}, ordenado);
+
     }
 
     //#region MOCKS
@@ -173,6 +175,32 @@ public class JUnit {
 
     @Test
     public void testOrdenaVector() {
-        assertArrayEquals(new int[] {0, 1, 2, 3, 4}, ordenaVector(ordenado), "Se ordena");
+        assertArrayEquals(new int[] {0, 1, 2, 3, 4}, ordenaVector(ordenado),
+        "Se ordena");
+    }
+
+    @Test
+    public void testSumaRango(){
+        assertEquals(6, sumaRango(ordenado, 1, 3));
+        assertEquals(10, sumaRango(ordenado, 0, 4));
+        assertEquals(3, sumaRango(ordenado, 1, 2));
+        try {
+            sumaRango(ordenado, -2, 6);
+            fail("Valores fuera de rango");
+        } catch (IllegalArgumentException e) {
+            System.err.println("Mala comprobacion");
+        }
+        try {
+            sumaRango(ordenado, 4, 2);
+            fail("Inicio > Fin");
+        } catch (IllegalArgumentException e) {
+            System.err.println("Mala comprobacion");
+        }
+        try {
+            sumaRango(null, 1,3);
+            fail("Vector Null");
+        } catch (IllegalArgumentException e) {
+            System.err.println("Mala comprobacion");
+        }
     }
 }
