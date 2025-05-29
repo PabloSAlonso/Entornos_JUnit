@@ -2,6 +2,7 @@ package operaciones;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -28,7 +29,7 @@ public class JUnit {
             assertTrue(Pruebas.bisiesto(añosBisiestos[i]), "Falla el numero " + añosBisiestos[i]);
         }
         for (int i = 0; i < añosNoBisiestos.length; i++) {
-            assertTrue(Pruebas.bisiesto(añosNoBisiestos[i]), "Falla el numero " + añosNoBisiestos[i]);
+            assertFalse(Pruebas.bisiesto(añosNoBisiestos[i]), "Falla el numero " + añosNoBisiestos[i]);
         }
     }
 
@@ -46,7 +47,7 @@ public class JUnit {
         assertEquals(Math.pow(-1, 2), Pruebas.potencia(-1, 2), 0);
         assertEquals(Math.pow(-1, -2), Pruebas.potencia(-1, -2), 0);
         assertEquals(Math.pow(2, -2), Pruebas.potencia(2, -2), 0);
-        assertEquals(Math.pow(2, -2), Pruebas.potencia(2, 0), 0);
+        assertEquals(Math.pow(2, 0), Pruebas.potencia(2, 0), 0);
 
     }
 
@@ -62,25 +63,25 @@ public class JUnit {
     @Test
     public void comprobarErrores() {
         try {
-            assertEquals("hola ", Pruebas.subCadena(cadena, 0, 5));
+            Pruebas.subCadena(cadena, 0, 5);
             fail("Longitud de caracteres pedida demasiado larga.");
         } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
         try {
-            assertEquals(" ", Pruebas.subCadena(cadena, 4, 1));
+            Pruebas.subCadena(cadena, 4, 1);
             fail("Posicion inicio fuera de rango.");
         } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
         try {
-            assertEquals("ol ", Pruebas.subCadena(cadena, -1, 2));
+            Pruebas.subCadena(cadena, -1, 2);
             fail("Posicion Inicio no valida.");
         } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
         try {
-            assertEquals("ol ", Pruebas.subCadena(cadena, 2, -1));
+            Pruebas.subCadena(cadena, 2, -1);
             fail("Cantidad de caracteres negativa.");
         } catch (IllegalArgumentException e) {
             assertTrue(true);
@@ -89,48 +90,56 @@ public class JUnit {
     }
 
     // Ejercicio 3
-    int[] vector1;
-    int[] vector2;
-    int[] vector3;
+    int[] ordenado;
+    int[] iguales;
+    int[] negativos;
+    int[] desordenado;
+    int[] lengthUno;
+    int[] lengthCero;
 
     @BeforeEach
     void AntesDeCadaUno() {
-        vector1 = new int[] { 1, 2, 3, 4, 0 };
-        vector2 = new int[] { 4, 4, 4, 4, 4 };
-        vector3 = new int[] { -1, -2, -3, -4, -5 };
+        ordenado = new int[] { 1, 2, 3, 4, 0 };
+        iguales = new int[] { 4, 4, 4, 4, 4 };
+        negativos = new int[] { -1, -2, -3, -4, -5 };
+        desordenado = new int[] {2, 5, -1, 4, -5};
+        lengthCero = new int[]{};
+        lengthUno = new int[]{3};
     }
 
     @Test
     public void testNumMayor() {
-        assertEquals(4, Pruebas.numeroMayor(vector1));
-        assertEquals(4, Pruebas.numeroMayor(vector2));
-        assertEquals(-1, Pruebas.numeroMayor(vector3));
+        assertEquals(4, Pruebas.numeroMayor(ordenado));
+        assertEquals(4, Pruebas.numeroMayor(iguales));
+        assertEquals(-1, Pruebas.numeroMayor(negativos));
+        assertEquals(5, Pruebas.numeroMayor(desordenado));
+        
     }
 
     @Test
     public void testNumMenor() {
-        assertEquals(0, Pruebas.numeroMenor(vector1));
-        assertEquals(4, Pruebas.numeroMenor(vector2));
-        assertEquals(-5, Pruebas.numeroMenor(vector3));
+        assertEquals(0, Pruebas.numeroMenor(ordenado));
+        assertEquals(4, Pruebas.numeroMenor(iguales));
+        assertEquals(-5, Pruebas.numeroMenor(negativos));
     }
 
     @Test
     public void testNumFails() {
 
         try {
-            assertEquals(3, Pruebas.numeroMenor(vector1));
+            Pruebas.numeroMenor(null);
         } catch (IllegalArgumentException e) {
             System.err.println("Expected equivocado");
         }
 
         try {
-            assertEquals(3, Pruebas.numeroMenor(vector2));
+            Pruebas.numeroMenor(lengthCero);
         } catch (IllegalArgumentException e) {
             System.err.println("Expected equivocado");
         }
 
         try {
-            assertEquals(-1, Pruebas.numeroMenor(vector3));
+            Pruebas.numeroMenor(lengthUno);
         } catch (IllegalArgumentException e) {
             System.err.println("Expected equivocado");
         }
@@ -138,11 +147,14 @@ public class JUnit {
     }
 
     @Test
-    public void testIntercambiaPosiciones() {
-        assertTrue(Pruebas.intercambiarDatos(vector1, 2, 4));
-        assertTrue(Pruebas.intercambiarDatos(vector1, 0, 4));
-        assertTrue(Pruebas.intercambiarDatos(vector1, 4, 0));
-        assertTrue(Pruebas.intercambiarDatos(vector1, 2, 4));
+    public void testIntercambiaPosiciones() { //AssertArrayEquals
+        assertTrue(Pruebas.intercambiarDatos(ordenado, 2, 4));
+
+        assertTrue(Pruebas.intercambiarDatos(ordenado, 0, 4));
+
+        assertTrue(Pruebas.intercambiarDatos(ordenado, 4, 0));
+
+        assertTrue(Pruebas.intercambiarDatos(ordenado, 2, 4));
     }
 
     //#region MOCKS
@@ -157,6 +169,6 @@ public class JUnit {
 
     @Test
     public void testOrdenaVector() {
-        assertArrayEquals(new int[] {0, 1, 2, 3, 4}, ordenaVector(vector1), "Se ordena");
+        assertArrayEquals(new int[] {0, 1, 2, 3, 4}, ordenaVector(ordenado), "Se ordena");
     }
 }
