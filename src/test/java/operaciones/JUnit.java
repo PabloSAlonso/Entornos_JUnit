@@ -121,6 +121,7 @@ public class JUnit {
         assertEquals(0, Pruebas.numeroMenor(ordenado));
         assertEquals(4, Pruebas.numeroMenor(iguales));
         assertEquals(-5, Pruebas.numeroMenor(negativos));
+        assertEquals(-5, Pruebas.numeroMenor(desordenado));
     }
 
     @Test
@@ -129,19 +130,19 @@ public class JUnit {
         try {
             Pruebas.numeroMenor(null);
         } catch (IllegalArgumentException e) {
-            System.err.println("Expected equivocado");
+            assertTrue(true);
         }
 
         try {
             Pruebas.numeroMenor(lengthCero);
         } catch (IllegalArgumentException e) {
-            System.err.println("Expected equivocado");
+            assertTrue(true);
         }
 
         try {
             Pruebas.numeroMenor(lengthUno);
         } catch (IllegalArgumentException e) {
-            System.err.println("Expected equivocado");
+            assertTrue(true);
         }
 
     }
@@ -188,19 +189,19 @@ public class JUnit {
             sumaRango(ordenado, -2, 6);
             fail("Valores fuera de rango");
         } catch (IllegalArgumentException e) {
-            System.err.println("Mala comprobacion");
+            assertTrue(true);
         }
         try {
             sumaRango(ordenado, 4, 2);
             fail("Inicio > Fin");
         } catch (IllegalArgumentException e) {
-            System.err.println("Mala comprobacion");
+            assertTrue(true);
         }
         try {
             sumaRango(null, 1,3);
             fail("Vector Null");
         } catch (IllegalArgumentException e) {
-            System.err.println("Mala comprobacion");
+            assertTrue(true);
         }
     }
 }
